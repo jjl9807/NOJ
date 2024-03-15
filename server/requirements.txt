@@ -1,0 +1,9 @@
+Django
+djangorestframework
+django-filter
+django-cors-headers
+mysqlclient
+django-sslserver
+gevent
+gunicorn
+drf-yasg
