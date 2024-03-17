@@ -1,58 +1,126 @@
 <template>
-    <div id="NavMenu">
-      <el-menu
-          :default-active="toIndex"
-          class="el-menu-demo"
-          text-color="#000000"
-          active-text-color="#3989fa"
-          mode="horizontal"
-          @select="handleSelect"
-      >
-      <el-menu-item index="/">
+  <el-menu mode="horizontal" :default-active="this.$store.state.activeTitle" :router="true">
+    <img v-if="!this.$store.state.uid" style="margin-top: 10px; margin-right: 20px"  class="icon">
+    <el-menu-item index="/">
       <el-icon>
         <Lollipop />
       </el-icon>
       首页
     </el-menu-item>
-    <el-menu-item index="/user/login">
+    <el-menu-item v-if="this.$store.state.uid" index="/problem">
       <el-icon>
-        <Lollipop />
+        <Files />
+      </el-icon>
+      题库
+    </el-menu-item>
+    <el-menu-item v-if="this.$store.state.uid" index="/contest">
+      <el-icon>
+        <Trophy />
+      </el-icon>
+      比赛
+    </el-menu-item>
+    <el-menu-item v-if="this.$store.state.uid" index="/submission">
+      <el-icon>
+        <DataAnalysis />
+      </el-icon>
+      提交记录
+    </el-menu-item>
+    <el-menu-item v-if="!this.$store.state.uid" index="/user/login">
+      <el-icon>
+        <User />
       </el-icon>
       登录
     </el-menu-item>
-    <el-menu-item index="/user/reg">
+    <el-menu-item v-if="!this.$store.state.uid" index="/user/reg">
       <el-icon>
-        <Lollipop />
+        <CircleCheck />
       </el-icon>
       注册
     </el-menu-item>
-      </el-menu>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "NavMenu",
-    
-    computed: {
-      toIndex(){  // 根据路径绑定到对应的一级菜单，防止页面刷新重新跳回第一个
-        return '/' + this.$route.path.split('/')[1];
-      },
+    <el-sub-menu index="/user" v-if="this.$store.state.uid">
+      <template #title>
+        <el-icon>
+          <User />
+        </el-icon>
+        {{ this.$store.state.name }}
+      </template>
+      <el-menu-item :index="/user/ + this.$store.state.uid">
+        <el-icon>
+          <UserFilled />
+        </el-icon>
+        个人主页
+      </el-menu-item>
+      <el-menu-item index="/user/userEdit">
+        <el-icon>
+          <Edit />
+        </el-icon>
+        编辑资料
+      </el-menu-item>
+      <span @click="logout">
+        <el-menu-item>
+          <el-icon>
+            <Close />
+          </el-icon>
+          退出登录
+        </el-menu-item>
+      </span>
+    </el-sub-menu>
+  </el-menu>
+</template>
+
+<script>
+
+export default {
+  name: "NavMenu",
+  data() {
+    return {
+      uid: 0,
+      name: "/",
+      gid: 1,
+      money: 50,
+      curPath: '',
+      options: [{
+        value: 50,
+        label: '一包辣条',
+      }, {
+        value: 100,
+        label: '一根冰棍',
+      }, {
+        value: 300,
+        label: '一瓶可乐',
+      }],
+    }
+  },
+  methods: {
+    logout() {
+      
     },
-    methods: {
-      handleSelect(path){  // 切换菜单栏
-        this.$router.push({
-          path: path
-        });
-      },
-    },
-  
-  };
-  </script>
-  
-  <style scoped>
-  </style>
-  ./Menu.vue
+  }
+}
+</script>
+
+<style>
+.icon {
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.pd .el-dialog__body {
+  padding: 0;
+}
+
+.el-divider--horizontal {
+  margin: 10px 0;
+}
+
+.el-menu--collapse .el-menu .el-submenu,
+.el-menu--popup {
+  min-width: 100px !important;
+  font-size: 10px;
+}
+
+.el-menu {
+  justify-content: center;
+}
+</style>

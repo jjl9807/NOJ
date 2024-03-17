@@ -1,7 +1,12 @@
 <template>
-  <div id = "app">
-    <NavMenu />
-  </div>
+  <el-container style="min-width: 992px;">
+    <el-header>
+      <NavMenu />
+    </el-header>
+    <el-main>
+    <router-view></router-view>  
+    </el-main>
+  </el-container>
 </template>
 
 <script>
