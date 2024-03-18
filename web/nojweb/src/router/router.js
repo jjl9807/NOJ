@@ -6,6 +6,9 @@ import contestMain from '@/components/contest/contestMain'
 import userEdit from '@/components/user/userEdit'
 import problemMain from '@/components/problem/problemMain'
 import submissionMain from '@/components/submission/submissionMain'
+import userMain from '@/components/user/userMain'
+import problemDescription from '@/components/problem/problemDescription'
+import problemSubmission from '@/components/problem/problemSubmission'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -58,6 +61,27 @@ const router = createRouter({
             activeTitle: '/submission/submissionMain'
         },
         path: '/submission', component: submissionMain,
+    },
+    {
+        meta: {
+            title: '用户信息',
+            activeTitle: '/user'
+        },
+        path: '/user/:uid', component: userMain,
+    },
+    {
+        meta: {
+            title: '用户信息',
+            activeTitle: '/user'
+        },
+        path: '/problem/:pid', component: problemDescription,
+    },
+    {
+        meta: {
+            title: '用户信息',
+            activeTitle: '/user'
+        },
+        path: '/problem/:pid/submission', component: problemSubmission,
     }],
     caseSensitive: true
 });
