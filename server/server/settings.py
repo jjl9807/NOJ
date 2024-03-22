@@ -85,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'NOJ',
-        'USER': os.environ.get("DB_USER")  if os.environ.get("DB_USER") else 'root',
-        'PASSWORD':os.environ.get("DB_PASSWORD")  if os.environ.get("DB_PASSWORD") else 'e*Dt8p@48%iVGm!Y*r57',
-        'HOST': os.environ.get("DB_HOST")  if os.environ.get("DB_HOST") else 'localhost',
-        'PORT': os.environ.get("DB_PORT")  if os.environ.get("DB_PORT") else 3306,
+        'USER': os.environ.get("DB_USER") if os.environ.get("DB_USER") else 'root',
+        'PASSWORD': os.environ.get("DB_PASSWORD") if os.environ.get("DB_PASSWORD") else 'dbpasswd',
+        'HOST': os.environ.get("DB_HOST") if os.environ.get("DB_HOST") else 'localhost',
+        'PORT': os.environ.get("DB_PORT") if os.environ.get("DB_PORT") else 3306,
     }
 }
 
