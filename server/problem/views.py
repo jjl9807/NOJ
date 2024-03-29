@@ -2,8 +2,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework import viewsets, mixins, filters
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
-from .models import Problem, ProblemMeta, ProblemTag
-from .serializers import ProblemSerializer, ProblemMetaSerializer, ProblemTagSerializer
+from .models import Problem, ProblemInfo, ProblemTag
+from .serializers import ProblemSerializer, ProblemInfoSerializer, ProblemTagSerializer
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -20,11 +20,11 @@ class ProblemView(viewsets.GenericViewSet, mixins.DestroyModelMixin, mixins.Crea
     throttle_classes = [ScopedRateThrottle, ]
 
 
-class ProblemMetaView(viewsets.ModelViewSet):
+class ProblemInfoView(viewsets.ModelViewSet):
 
-    queryset = ProblemMeta.objects.extra(
+    queryset = ProblemInfo.objects.extra(
         select={'t': 'pid+0'}).extra(order_by=["-t"])
-    serializer_class = ProblemMetaSerializer
+    serializer_class = ProblemInfoSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)

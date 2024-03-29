@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Problem',
             fields=[
-                ('pid', models.CharField(max_length=50, primary_key=True, serialize=False)),
+                ('pid', models.CharField(max_length=50,
+                 primary_key=True, serialize=False)),
                 ('author', models.CharField(default='admin', max_length=50)),
                 ('time', models.DateTimeField(auto_now=True)),
                 ('title', models.CharField(max_length=500)),
@@ -30,9 +31,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='ProblemMeta',
+            name='ProblemInfo',
             fields=[
-                ('pid', models.CharField(max_length=50, primary_key=True, serialize=False)),
+                ('pid', models.CharField(max_length=50,
+                 primary_key=True, serialize=False)),
                 ('title', models.CharField(max_length=500)),
                 ('level', models.IntegerField(default=1)),
                 ('submission', models.IntegerField(default=0)),
@@ -53,7 +55,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ProblemTag',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('tagname', models.CharField(max_length=50, unique=True)),
                 ('num', models.IntegerField()),
             ],

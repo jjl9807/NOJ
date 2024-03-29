@@ -4,7 +4,7 @@ from rest_framework import routers
 
 routers = routers.DefaultRouter()
 routers.register('problem', views.ProblemView)
-routers.register('pstatus', views.ProblemMetaView)
+routers.register('pstatus', views.ProblemInfoView)
 routers.register('ptag', views.ProblemTagView)
 
 urlpatterns = [

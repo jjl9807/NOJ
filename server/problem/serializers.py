@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Problem, ProblemMeta, ProblemTag
+from .models import Problem, ProblemInfo, ProblemTag
 
 
 class ProblemSerializer(serializers.ModelSerializer):
@@ -8,9 +8,9 @@ class ProblemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProblemMetaSerializer(serializers.ModelSerializer):
+class ProblemInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProblemMeta
+        model = ProblemInfo
         fields = '__all__'
 
 

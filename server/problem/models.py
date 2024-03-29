@@ -17,6 +17,7 @@ class Problem(models.Model):
     mem_limit = models.IntegerField()
     hint = models.TextField(null=True, default="")
     priv = models.IntegerField(default=1)  # 题目权限：1 公开 2 私密 3 仅限比赛
+    type = models.IntegerField(default=1)  # 题目类型：1 文本比较 2 样例池 3 动态样例
 
     objects = models.Manager()
 
@@ -24,7 +25,7 @@ class Problem(models.Model):
         return self.title
 
 
-class ProblemMeta(models.Model):
+class ProblemInfo(models.Model):
     pid = models.CharField(max_length=50, primary_key=True)
     title = models.CharField(max_length=500)
     level = models.IntegerField(default=1)  # 题目难度：1 简单 2 中等 3 困难
