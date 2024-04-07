@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ping',
     'problem',
     'submission',
+    'contest',
 ]
 
 MIDDLEWARE = [
