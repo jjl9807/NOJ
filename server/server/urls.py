@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ping.urls')),
     path('', include('problem.urls')),
+    path('', include('submission.urls')),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0),
          name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger',

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'ping',
     'problem',
+    'submission',
 ]
 
 MIDDLEWARE = [
