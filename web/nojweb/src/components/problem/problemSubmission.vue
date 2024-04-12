@@ -80,6 +80,7 @@
             console.log('提交表单');
             console.log(this.submitForm);
             // 这里可以使用router跳转
+            this.$router.push('/submission/1');
           } else {
             return false;
           }

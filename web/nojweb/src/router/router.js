@@ -9,6 +9,7 @@ import submissionMain from '@/components/submission/submissionMain'
 import userMain from '@/components/user/userMain'
 import problemDescription from '@/components/problem/problemDescription'
 import problemSubmission from '@/components/problem/problemSubmission'
+import submissionDetail from '@/components/submission/submissionDetail.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -82,6 +83,13 @@ const router = createRouter({
             activeTitle: '/user'
         },
         path: '/problem/:pid/submission', component: problemSubmission,
+    },
+    {
+        meta: {
+            title: '提交之后',
+            activeTitle: '/submission'
+        },
+        path: '/submission/:sid', component: submissionDetail,
     }],
     caseSensitive: true
 });
