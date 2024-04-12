@@ -82,18 +82,18 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'NOJ',
-        'USER': os.environ.get("DB_USER") if os.environ.get("DB_USER") else 'root',
-        'PASSWORD': os.environ.get("DB_PASSWORD") if os.environ.get("DB_PASSWORD") else 'dbpasswd',
-        'HOST': os.environ.get("DB_HOST") if os.environ.get("DB_HOST") else 'localhost',
-        'PORT': os.environ.get("DB_PORT") if os.environ.get("DB_PORT") else 3306,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'NOJ',
+    #     'USER': os.environ.get("DB_USER") if os.environ.get("DB_USER") else 'root',
+    #     'PASSWORD': os.environ.get("DB_PASSWORD") if os.environ.get("DB_PASSWORD") else 'dbpasswd',
+    #     'HOST': os.environ.get("DB_HOST") if os.environ.get("DB_HOST") else 'localhost',
+    #     'PORT': os.environ.get("DB_PORT") if os.environ.get("DB_PORT") else 3306,
+    # }
 }
 
 
