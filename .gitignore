@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Django
+server/*/migrations/*
+!server/*/migrations/__init__.py
+
 # C extensions
 *.so
 
