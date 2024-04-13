@@ -58,7 +58,7 @@
       fetchProblemData() {
         // Simulated problem data
         
-        axios.post('http://127.0.0.1:8000/problem', {
+        axios.post('http://127.0.0.1:8000/1/problem', {
         pid: this.pid,
       }).then(res => {
         this.problem = {
