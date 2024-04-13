@@ -27,6 +27,7 @@
   </template>
   
   <script>
+  import axios from 'axios';
   import problemMenu from '@/components/problem/problemMenu'
   export default {
     name:"problemDescription",
@@ -56,8 +57,12 @@
     methods: {
       fetchProblemData() {
         // Simulated problem data
+        
+        axios.post('http://127.0.0.1:8000/problem', {
+        pid: this.pid,
+      }).then(res => {
         this.problem = {
-          title: "Sample Problem",
+          title : res.title,
           content: "This is a sample problem description.",
           inputFormat: "The input format is...",
           outputFormat: "The output format is...",
@@ -68,6 +73,8 @@
           timeLimit: "1s",
           spaceLimit: "64MB"
         };
+      });
+        
       }
     }
   };
