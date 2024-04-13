@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
@@ -7,8 +8,10 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.throttling import ScopedRateThrottle
-from .models import User, UserStatus, UserLoginRecord, GlobalSettings
-from .serializers import UserSerializer, UserStatusSerializer, UserNoPassSerializer, UserNoTypeSerializer, UserLoginRecordSerializer, GlobalSettingsSerializer
+from .models import User, GlobalSettings
+from .serializers import UserBasicSerializer, UserLoginSerializer, UserRegisterSerializer, UserSerializer, UserStatusSerializer, UserNoPassSerializer, UserNoTypeSerializer, GlobalSettingsSerializer
+from drf_yasg.utils import swagger_auto_schema
+from django.contrib.auth import authenticate, login, logout
 # from .permission import UserSafePostOnly, UserPUTOnly, AuthPUTOnly, ManagerOnly
 
 
@@ -32,7 +35,7 @@ def getRegisterPermission(request):
 
 
 class UserStatusView(viewsets.ModelViewSet):
-    queryset = UserStatus.objects.order_by('-ac')  # 根据AC数量降序排列
+    queryset = User.objects.order_by('-ac')  # 根据AC数量降序排列
     serializer_class = UserStatusSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('username',)
@@ -66,12 +69,9 @@ class UserChangeView(APIView):
             user = User.objects.get(username=username)
             user.password = data["password"]
             user.nickname = data["nickname"]
-            user.qq = data["qq"]
             user.email = data["email"]
+            user.desc = data["des"]
             user.save()
-            user2 = UserStatus.objects.get(username=username)
-            user2.des = data["des"]
-            user2.save()
 
             return Response("ok", status=HTTP_200_OK)
 
@@ -93,76 +93,35 @@ class UserChangeAllView(APIView):
             if data["password"] != ".":
                 user.password = data["password"]
             user.nickname = data["nickname"]
-            user.qq = data["qq"]
             user.email = data["email"]
-            user.type = data["type"]
             user.save()
             return Response("ok", status=HTTP_200_OK)
         return Response("username error", status=HTTP_400_BAD_REQUEST)
-
-
-class UserLoginRecordView(viewsets.ModelViewSet):
-    """
-    用户登录记录
-    """
-    queryset = UserLoginRecord.objects.all().order_by('-id')
-    serializer_class = UserLoginRecordSerializer
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filter_fields = ('username', 'ip',)
-    search_fields = ('username', 'ip')
-    # permission_classes = (ManagerOnly,)
-    pagination_class = LimitOffsetPagination
-    throttle_scope = "post"
-    throttle_classes = [ScopedRateThrottle, ]
-
-
-class UserLoginRecordAPIView(APIView):
-    throttle_scope = "post"
-    throttle_classes = [ScopedRateThrottle, ]
-
-    def post(self, request, format=None):
-        data = request.data.copy()
-
-        ip = "获取失败"
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-
-        data["msg"] = request.META.get("HTTP_USER_AGENT", "获取失败")
-        data["ip"] = ip
-        print(data)
-        serializer = UserLoginRecordSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response('ok', status=HTTP_200_OK)
 
 
 class UserLoginAPIView(APIView):
     """
     用户登录
     """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserLoginSerializer
     permission_classes = (AllowAny,)
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
+    @swagger_auto_schema(request_body=UserLoginSerializer, responses={200: "You're logged in.", 400: "Invalid login."})
     def post(self, request, format=None):
         data = request.data
         username = data.get('username')
+        print(username)
         password = data.get('password')
-        user = User.objects.get(username__exact=username)
-        userdata = UserStatus.objects.get(username__exact=username)
-        if user.password == password:
-            serializer = UserSerializer(user)
-            new_data = serializer.data
-            request.session['user_id'] = user.username
-            request.session['type'] = user.type
-            request.session['rating'] = userdata.rating
-            return Response(new_data, status=HTTP_200_OK)
-        return Response('passworderror', HTTP_200_OK)
+        print(password)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            request.session['user_id'] = username
+            return Response("You're logged in.", HTTP_200_OK)
+        else:
+            return Response("Invalid login.", HTTP_400_BAD_REQUEST)
 
 
 class UserLogoutAPIView(APIView):
@@ -172,14 +131,11 @@ class UserLogoutAPIView(APIView):
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
+    @swagger_auto_schema(responses={200: "You're logged out."})
     def get(self, request):
-        if request.session.get('user_id', None) is not None:
-            del request.session['user_id']
-        if request.session.get('type', None) is not None:
-            del request.session['type']
-        if request.session.get('rating', None) is not None:
-            del request.session['rating']
-        return Response('ok', HTTP_200_OK)
+        logout(request)
+        # return HttpResponseRedirect('/')
+        return Response("You're logged out.", HTTP_200_OK)
 
 
 class UserRegisterAPIView(APIView):
@@ -192,19 +148,19 @@ class UserRegisterAPIView(APIView):
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
+    @swagger_auto_schema(request_body=UserRegisterSerializer, responses={200: UserBasicSerializer(), 400: "Duplicate username!"})
     def post(self, request, format=None):
         if getRegisterPermission(request) == False:
-            return Response('register is not allow on this oj !!', status=HTTP_400_BAD_REQUEST)
+            return Response("Register is not open!", status=HTTP_400_BAD_REQUEST)
 
         data = request.data.copy()
-        data['type'] = 1
         username = data.get('username')
         if User.objects.filter(username__exact=username):
-            return Response("usererror", HTTP_200_OK)
-        serializer = UserSerializer(data=data)
-        serializer2 = UserStatusSerializer(data=data)
-        if serializer.is_valid(raise_exception=True) and serializer2.is_valid(raise_exception=True):
-            serializer.save()
-            serializer2.save()
+            return Response("Duplicate username!", HTTP_400_BAD_REQUEST)
+        password = data.get('password')
+        email = data.get('email')
+        user = User.objects.create_user(username=username,password=password, email=email)
+        if user:
+            serializer = UserBasicSerializer(user)
             return Response(serializer.data, status=HTTP_200_OK)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return Response("System error!", status=HTTP_400_BAD_REQUEST)
