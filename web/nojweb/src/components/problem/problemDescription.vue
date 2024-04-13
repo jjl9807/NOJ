@@ -21,8 +21,8 @@
       <pre>{{ problem.example.output }}</pre>
   
       <h2>限制与约定</h2>
-      <p>时间限制：{{ problem.timeLimit }}</p>
-      <p>空间限制：{{ problem.spaceLimit }}</p>
+      <p>时间限制：{{ problem.timeLimit }} ms</p>
+      <p>空间限制：{{ problem.spaceLimit }} MB</p>
     </div>
   </template>
   
@@ -62,16 +62,16 @@
         pid: this.pid,
       }).then(res => {
         this.problem = {
-          title : res.title,
-          content: "This is a sample problem description.",
-          inputFormat: "The input format is...",
-          outputFormat: "The output format is...",
+          title : res.data.title,
+          content: res.data.desc,
+          inputFormat: res.data.in_desc,
+          outputFormat: res.data.out_desc,
           example: {
-            input: "Sample input...",
-            output: "Sample output..."
+            input: res.data.in_sample,
+            output: res.data.out_sample
           },
-          timeLimit: "1s",
-          spaceLimit: "64MB"
+          timeLimit: res.data.time_limit,
+          spaceLimit: res.data.mem_limit
         };
       });
         
