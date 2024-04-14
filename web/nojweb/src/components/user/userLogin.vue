@@ -49,6 +49,7 @@ import axios from 'axios';
           this.$store.commit('setName', username);
           this.$router.push('/')
         }).catch(err => {
+          this.$message.error('登录失败，请检查用户名和密码是否正确');
           console.log(err)
         })
       },
