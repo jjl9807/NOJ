@@ -4,94 +4,95 @@ import home from '@/components/views/home'
 import userReg from '@/components/user/userReg'
 import contestMain from '@/components/contest/contestMain'
 import userEdit from '@/components/user/userEdit'
-import problemMain from '@/components/problem/problemMain'
+// import problemMain from '@/components/problem/problemMain'
 import submissionMain from '@/components/submission/submissionMain'
 import userMain from '@/components/user/userMain'
 import problemDescription from '@/components/problem/problemDescription'
 import problemSubmission from '@/components/problem/problemSubmission'
+import problemList from '@/components/problem/problemList.vue'
 import submissionDetail from '@/components/submission/submissionDetail.vue'
 import store from "@/sto/store";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-    {
-        meta: {
-            title: '用户登录',
-            activeTitle: '/user/login'
+        {
+            meta: {
+                title: '用户登录',
+                activeTitle: '/user/login'
+            },
+            path: '/user/login', component: userLogin,
         },
-        path: '/user/login', component: userLogin,
-    }, 
-    {
-        meta: {
-            title: '首页',
-            activeTitle: '/'
+        {
+            meta: {
+                title: '首页',
+                activeTitle: '/'
+            },
+            path: '/', component: home,
         },
-        path: '/', component: home,
-    }, 
-    {
-        meta: {
-            title: '用户注册',
-            activeTitle: '/user/reg'
+        {
+            meta: {
+                title: '用户注册',
+                activeTitle: '/user/reg'
+            },
+            path: '/user/reg', component: userReg,
         },
-        path: '/user/reg', component: userReg,
-    } ,
-    {
-        meta: {
-            title: '用户主页',
-            activeTitle: '/user/reg'
+        {
+            meta: {
+                title: '用户主页',
+                activeTitle: '/user/reg'
+            },
+            path: '/user/userEdit', component: userEdit,
         },
-        path: '/user/userEdit', component: userEdit,
-    },
-    {
-        meta: {
-            title: '题库主页',
-            activeTitle: '/problem/problemMain'
+        {
+            meta: {
+                title: '题库主页',
+                activeTitle: '/problem'
+            },
+            path: '/problem', component: problemList,
         },
-        path: '/problem', component: problemMain,
-    } ,
-    {
-        meta: {
-            title: '比赛主页',
-            activeTitle: '/contest/contestMain'
+        {
+            meta: {
+                title: '比赛主页',
+                activeTitle: '/contest/contestMain'
+            },
+            path: '/contest', component: contestMain,
         },
-        path: '/contest', component: contestMain,
-    },
-    {
-        meta: {
-            title: '提交主页',
-            activeTitle: '/submission/submissionMain'
+        {
+            meta: {
+                title: '提交主页',
+                activeTitle: '/submission/submissionMain'
+            },
+            path: '/submission', component: submissionMain,
         },
-        path: '/submission', component: submissionMain,
-    },
-    {
-        meta: {
-            title: '用户信息',
-            activeTitle: '/user'
+        {
+            meta: {
+                title: '用户信息',
+                activeTitle: '/user'
+            },
+            path: '/user/:uid', component: userMain,
         },
-        path: '/user/:uid', component: userMain,
-    },
-    {
-        meta: {
-            title: '用户信息',
-            activeTitle: '/user'
+        {
+            meta: {
+                title: '用户信息',
+                activeTitle: '/user'
+            },
+            path: '/problem/:pid', component: problemDescription,
         },
-        path: '/problem/:pid', component: problemDescription,
-    },
-    {
-        meta: {
-            title: '用户信息',
-            activeTitle: '/user'
+        {
+            meta: {
+                title: '用户信息',
+                activeTitle: '/user'
+            },
+            path: '/problem/:pid/submission', component: problemSubmission,
         },
-        path: '/problem/:pid/submission', component: problemSubmission,
-    },
-    {
-        meta: {
-            title: '提交之后',
-            activeTitle: '/submission'
-        },
-        path: '/submission/:sid', component: submissionDetail,
-    }],
+        {
+            meta: {
+                title: '提交之后',
+                activeTitle: '/submission'
+            },
+            path: '/submission/:sid', component: submissionDetail,
+        }],
     caseSensitive: true
 });
 

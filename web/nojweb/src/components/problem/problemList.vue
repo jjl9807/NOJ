@@ -4,7 +4,7 @@
         <template #header>
           <div class="card-header">
             题目列表
-            <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="20"
+            <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="page_size"
               layout="total, prev, pager, next" :total="total"></el-pagination>
             <el-button-group>
               <el-button type="primary" @click="all">
@@ -48,6 +48,8 @@
   </template>
   
   <script>
+import axios from 'axios';
+
 
   
   export default {
@@ -57,31 +59,59 @@
         problemList: [],
         total: 0,
         gid: 1,
+        page_size: 10,
         currentPage: 1,
         finished: false
       }
     },
     methods: {
         all() {
-      // 模拟数据请求延迟效果
-      this.finished = false;
-      setTimeout(() => {
-        // 模拟从后端获取的数据
-        const mockData = [
-          { pid: 1, title: '题目1', acCnt: 10, submitCnt: 20, time: '2024-03-17', publisher: '出题人1', publisherUid: 1 },
-          { pid: 2, title: '题目2', acCnt: 5, submitCnt: 15, time: '2024-03-16', publisher: '出题人2', publisherUid: 2 },
-          // 其他题目数据...
-        ];
-        this.problemList = mockData;
-        this.total = mockData.length;
+          this.problemList = [];
+      // 请求数据
+      axios.get('http://127.0.0.1:8000/problem/', {
+        params: {
+          limit: this.page_size,
+          offset: (this.currentPage - 1) * this.page_size,
+        }
+      }).then(res => {
+        // this.problemList = res.data.data;
+        this.total = res.data.count;
+        for (let i = 0; i < res.data.results.length; i++) {
+          // 时间格式化
+          const date = new Date(res.data.results[i]['time']);
+          const year = date.getFullYear();
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const day = date.getDate().toString().padStart(2, '0');
+          const hours = date.getHours().toString().padStart(2, '0');
+          const minutes = date.getMinutes().toString().padStart(2, '0');
+          const seconds = date.getSeconds().toString().padStart(2, '0');
+          // 数据对接
+          const problem_entry = res.data.results[i];
+          const rec = {
+            pid: problem_entry['pid'],
+            title: problem_entry['title'],
+            acCnt: 10,
+            submitCnt: 20,
+            time: `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`,
+            publisher: problem_entry['author'],
+            publisherUid: -1
+          };
+          this.problemList.push(rec);
+        }
         this.finished = true;
-      }, 1000); // 模拟延迟1秒
+      }).catch(err => {
+        console.error(err);
+      });
     },
     handleCurrentChange(val) {
       this.currentPage = val;
       this.all();
     }
-  }
+  },
+  mounted() {
+      this.gid = this.$store.state.gid;
+      this.all();
+    }
   }
   </script>
   
