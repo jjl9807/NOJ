@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from .models import User, UserStatus, UserLoginRecord, GlobalSettings
-
-
-class UserLoginRecordSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserLoginRecord
-        fields = '__all__'
+from .models import User, GlobalSettings
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,8 +22,26 @@ class UserNoTypeSerializer(serializers.ModelSerializer):
 
 class UserStatusSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserStatus
-        fields = '__all__'
+        model = User
+        fields = ['username', 'ac', 'submit', 'desc', 'ac_pid']
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+
+class UserBasicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
 
 class GlobalSettingsSerializer(serializers.ModelSerializer):
