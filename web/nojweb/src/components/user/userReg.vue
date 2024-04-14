@@ -64,6 +64,7 @@ export default {
         console.error('注册失败', err);
         // 可以根据实际需求处理注册失败后的逻辑
       });
+      this.$router.push('/user/login')
           } else {
             this.$message.error("密码不一致");
           }
