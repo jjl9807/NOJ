@@ -3,7 +3,6 @@ from . import views
 from rest_framework import routers
 
 routers = routers.DefaultRouter()
-routers.register('userstatus', views.UserStatusView)
 routers.register('user', views.UserView)
 
 urlpatterns = [
