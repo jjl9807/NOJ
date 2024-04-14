@@ -11,7 +11,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 
 
-class ProblemView(viewsets.GenericViewSet, mixins.DestroyModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
+class ProblemView(viewsets.ModelViewSet):
     queryset = Problem.objects.all()
     serializer_class = ProblemSerializer
     filter_fields = ('priv',)
