@@ -18,6 +18,7 @@ import { createStore } from 'vuex'
 
 // 从本地存储中读取初始状态
 const initialState = {
+  code: localStorage.getItem('code') || '',
   uid: localStorage.getItem('uid') || 0,
   name: localStorage.getItem('name') || '/',
   gid: localStorage.getItem('gid') || 0,
@@ -50,6 +51,10 @@ export default createStore({
       state.path = path;
       localStorage.setItem('path', path);
     },
+    setCode(state,code){
+      state.code = code;
+      localStorage.setItem('code',code);
+    }
   },
   actions: {},
   modules: {}

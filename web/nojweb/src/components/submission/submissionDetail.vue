@@ -18,7 +18,12 @@
           </template>
           <el-table :data="testCases" border>
             <el-table-column prop="testCase" label="测试用例"></el-table-column>
-            <el-table-column prop="status" label="状态"></el-table-column>
+            <el-table-column prop="status" label="状态">
+  <template v-slot="{ row }">
+    <span v-html="formatStatus(row)"></span>
+  </template>
+</el-table-column>
+
             <el-table-column prop="time" label="时间"></el-table-column>
             <el-table-column prop="memory" label="内存"></el-table-column>
           </el-table>
@@ -31,21 +36,55 @@
   export default {
     name:"submissionDetail",
     data() {
-      return {
-        submittedCode: `#include <iostream>
-  using namespace std;
-  
-  int main() {
-      cout << "Hello, World!";
-      return 0;
-  }`, // 模拟已提交的代码
-        testCases: [
-          { testCase: "Test#1", status: "Accepted", time: "100ms", memory: "10MB" },
-          { testCase: "Test#2", status: "Wrong Answer", time: "-", memory: "-" },
-          // 可以根据需要添加更多的测试用例数据
-        ],
-      };
-    },
+  let testCases = [];
+  if (this.$route.params.sid == 1) {
+    testCases = [
+      { testCase: "Test#1", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#2", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#3", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#4", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#5", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#6", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#7", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#8", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#9", status: "Accepted", time: "1ms", memory: "6.43MB" },
+      { testCase: "Test#10", status: "Accepted", time: "1ms", memory: "6.43MB" },
+    ];
+  } else if (this.$route.params.sid == 2) {
+    testCases = [
+      { testCase: "Test#1", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#2", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#3", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#4", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#5", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#6", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#7", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#8", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#9", status: "Wrong Answer", time: "1ms", memory: "5.22MB" },
+      { testCase: "Test#10", status:"Wrong Answer", time: "1ms", memory: "5.22MB" },
+    ];
+  } else {
+    testCases = [
+      { testCase: "Test#1", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#2", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#3", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#4", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#5", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#6", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#7", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#8", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#9", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+      { testCase: "Test#10", status: "Time Limit Exceeded", time: "2001ms", memory: "9.84MB" },
+
+    ];
+  }
+
+  return {
+    submittedCode: this.$store.state.code,
+    sid: this.$route.params.sid,
+    testCases: testCases,
+  };
+},
     mounted() {
     this.mounted = true;
     this.sid = this.$route.params.sid;
@@ -68,6 +107,16 @@
           this.$refs.codeDisplay.scrollTop = target.scrollTop;
         }
       },
+      formatStatus(row) {
+    if (row.status === 'Accepted') {
+      return '<span style="color: green;">' + row.status + '</span>';
+    } else if(row.status == 'Time Limit Exceeded'){
+      return '<span style="color: purple;">' + row.status + '</span>';
+    }else{
+      return '<span style="color: red;">' + row.status + '</span>';
+
+    }
+  },
     },
   };
   </script>

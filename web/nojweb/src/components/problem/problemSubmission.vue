@@ -35,8 +35,8 @@
         </el-form-item>
   
         <el-form-item>
-          <el-button type="primary" @click="submitFormValidate('submitForm')">提交</el-button>
-        </el-form-item>
+        <el-button type="primary" @click="submitFormValidate('submitForm')">提交</el-button>
+       </el-form-item>
       </el-form>
     </div>
   </template>
@@ -50,6 +50,7 @@
     },
     data() {
       return {
+        pid:this.$route.params.pid,
         submitForm: {
           language: '',
           editorType: 'editor', // 默认使用编辑器上传
@@ -80,7 +81,14 @@
             console.log('提交表单');
             console.log(this.submitForm);
             // 这里可以使用router跳转
+            this.$store.commit('setCode', this.submitForm.code);
+          if(this.pid == 1){
             this.$router.push('/submission/1');
+          }else if (this.pid ==2){
+            this.$router.push('/submission/2');
+          }else{
+            this.$router.push('/submission/3');
+          }
           } else {
             return false;
           }

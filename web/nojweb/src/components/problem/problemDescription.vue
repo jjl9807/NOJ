@@ -90,7 +90,7 @@
 }
 
 .code-box {
-  background-color: #E8F0FE;
+  background-color: #f5f5f5;
 }
 
   </style>
