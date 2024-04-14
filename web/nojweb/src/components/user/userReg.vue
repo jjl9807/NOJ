@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "userRegister",
   data() {
@@ -52,7 +53,17 @@ export default {
         if (valid) {
           if (this.registerForm.password === this.registerForm.confirmPassword) {
             // 进行注册逻辑，例如发送注册请求到后端接口
-            console.log("注册成功");
+        axios.post('http://127.0.0.1:8000/register', {
+        username: this.username,
+        email: this.email,
+        password:this.password
+      }).then(res => {
+        console.log('注册成功', res.data);
+        // 可以根据实际需求处理注册成功后的逻辑
+      }).catch(err => {
+        console.error('注册失败', err);
+        // 可以根据实际需求处理注册失败后的逻辑
+      });
           } else {
             this.$message.error("密码不一致");
           }
