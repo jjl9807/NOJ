@@ -54,9 +54,9 @@ export default {
           if (this.registerForm.password === this.registerForm.confirmPassword) {
             // 进行注册逻辑，例如发送注册请求到后端接口
         axios.post('http://127.0.0.1:8000/register', {
-        username: this.username,
-        email: this.email,
-        password:this.password
+        username: this.registerForm.username,
+        email: this.registerForm.email,
+        password:this.registerForm.password
       }).then(res => {
         console.log('注册成功', res.data);
         // 可以根据实际需求处理注册成功后的逻辑
