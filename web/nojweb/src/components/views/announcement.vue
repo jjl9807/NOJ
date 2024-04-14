@@ -23,7 +23,7 @@
     </el-col>
     <el-col :xs="24" :sm="24" :md="8">
       <div class="image-container">
-        <img src="your_image_url_here" alt="Image" />
+        <img src="@/assets/logo.png" alt="Image" />
       </div>
     </el-col>
   </el-row>

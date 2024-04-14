@@ -1,6 +1,6 @@
 <template>
   <el-menu mode="horizontal" :default-active="this.$store.state.activeTitle" :router="true">
-    <img v-if="!this.$store.state.uid" style="margin-top: 10px; margin-right: 20px"  class="icon">
+    <img src = "@/assets/favicon.png" style="margin-top: 10px; margin-right: 20px"  class="icon">
     <el-menu-item index="/">
       <el-icon>
         <Lollipop />
@@ -79,16 +79,7 @@ export default {
       gid: 1,
       money: 50,
       curPath: '',
-      options: [{
-        value: 50,
-        label: '一包辣条',
-      }, {
-        value: 100,
-        label: '一根冰棍',
-      }, {
-        value: 300,
-        label: '一瓶可乐',
-      }],
+      
     }
   },
   methods: {
