@@ -23,6 +23,8 @@
 </template>
   
   <script>
+import axios from 'axios';
+
   export default {
     name: "userLogin",
     data() {
@@ -35,11 +37,14 @@
   },
     methods: {
       login() {
-        // 在这里可以编写登录逻辑，例如发送登录请求到后端接口
-        // 然后根据后端返回的结果进行相应的处理
-        console.log('Username:', this.userInfo.name);
-        console.log('Password:', this.userInfo.pwd);
-        // 这里只是简单地输出用户名和密码到控制台
+        axios.post('http://127.0.0.1:8000/login', {
+          username: this.userInfo.name,
+          password: this.userInfo.pwd
+        }).then(res => {
+          console.log(res.data)
+        }).catch(err => {
+          console.log(err)
+        })
       },
       submit(){
         this.$store.commit('setUid', 1);
