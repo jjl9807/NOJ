@@ -42,7 +42,7 @@ export default {
     // 模拟加载公告数据
     async fetchAnnouncements() {
       // 模拟异步加载数据，此处应替换为实际的数据获取方式
-      await new Promise(resolve => setTimeout(resolve, 1000)); // 模拟异步加载延迟
+      await new Promise(resolve => setTimeout(resolve, 100)); // 模拟异步加载延迟
       this.announcements = [
         { aid: 1, title: "公告标题1", time: "2024-03-16" },
         { aid: 2, title: "公告标题2", time: "2024-03-15" },

@@ -131,7 +131,7 @@
   .code-display,
   .test-cases {
     width: 45%;
-    height: 300px;
+    height: auto;
     overflow: auto;
   }
   
