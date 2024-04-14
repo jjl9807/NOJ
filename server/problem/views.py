@@ -14,6 +14,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class ProblemView(viewsets.ModelViewSet):
     queryset = Problem.objects.all()
     serializer_class = ProblemSerializer
+    pagination_class = LimitOffsetPagination
     filter_fields = ('priv',)
     permission_classes = (AllowAny,)
     throttle_scope = "post"
