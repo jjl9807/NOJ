@@ -10,6 +10,7 @@ import userMain from '@/components/user/userMain'
 import problemDescription from '@/components/problem/problemDescription'
 import problemSubmission from '@/components/problem/problemSubmission'
 import submissionDetail from '@/components/submission/submissionDetail.vue'
+import store from "@/sto/store";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -94,4 +95,27 @@ const router = createRouter({
     caseSensitive: true
 });
 
+router.afterEach((to) => {
+    store.state.activeTitle = to.meta.activeTitle;
+    if (to.meta.title) {
+        document.title = to.meta.title
+    }
+})
+
+
+
+/*router.beforeEach((to, from, next) => {
+    // to 将要访问的路径
+    // from 代表从哪个路径跳转而来
+    // next 是一个函数，表示放行
+    // next() 放行   next('/login') 强制跳转
+    if (to.path === '/login') return next()
+  // 获取token
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (!tokenStr) this.$store.commit('setUid', 0);
+  })
+*/
+
+
 export default router;
+

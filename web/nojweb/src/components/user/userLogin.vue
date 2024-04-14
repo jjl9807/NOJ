@@ -42,7 +42,8 @@
         // 这里只是简单地输出用户名和密码到控制台
       },
       submit(){
-
+        this.$store.commit('setUid', 1);
+        this.$router.push('/')
       }
     }
   };
