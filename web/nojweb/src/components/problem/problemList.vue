@@ -16,7 +16,7 @@
             </el-button-group>
           </div>
         </template>
-        <el-table :data="problemList" height="600px" :header-cell-style="{ textAlign: 'center' }"
+        <el-table :data="problemList" height="100%" :header-cell-style="{ textAlign: 'center' }"
           :cell-style="{ textAlign: 'center' }" v-loading="!finished">
           <el-table-column prop="pid" label="#" width="100px" />
           <el-table-column prop="title" label="标题" width="auto">
@@ -118,7 +118,7 @@ import axios from 'axios';
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style scoped>
   .box-card {
-    height: 700px;
+    height: auto;
     margin: 10px;
   }
   
