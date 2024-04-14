@@ -69,7 +69,7 @@
 </template>
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 export default {
   name: "NavMenu",
   data() {
@@ -93,13 +93,13 @@ export default {
   },
   methods: {
     logout() {
-     // axios.get('http://127.0.0.1:8000/logout').then(() => {
+     axios.get('http://127.0.0.1:8000/logout').then(() => {
         window.sessionStorage.clear();
         localStorage.setItem('uid',0);
         this.$store.commit('setUid', 0);
         this.$store.commit('setName','/');
-    //  });
-    //  location.reload();
+     });
+     this.$router.push('/');
     },
   }
 }
