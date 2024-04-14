@@ -1,6 +1,5 @@
 <template>
     <el-menu mode="horizontal" :default-active="this.$store.state.activeTitle" :router="true">
-      <img  style="margin-top: 10px; margin-right: 20px"  class="icon">
       <el-menu-item index="/problem/1">
         <el-icon>
           <Lollipop />
