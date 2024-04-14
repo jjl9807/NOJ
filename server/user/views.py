@@ -108,7 +108,7 @@ class UserLoginAPIView(APIView):
     throttle_scope = "post"
     throttle_classes = [ScopedRateThrottle, ]
 
-    @swagger_auto_schema(request_body=UserLoginSerializer, responses={200: "You're logged in.", 400: "Invalid login."})
+    @swagger_auto_schema(request_body=UserLoginSerializer, responses={200: UserBasicSerializer, 400: "Invalid login."})
     def post(self, request, format=None):
         data = request.data
         username = data.get('username')
@@ -118,8 +118,8 @@ class UserLoginAPIView(APIView):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            request.session['user_id'] = username
-            return Response("You're logged in.", HTTP_200_OK)
+            serializer = UserBasicSerializer(user)
+            return Response(serializer.data, HTTP_200_OK)
         else:
             return Response("Invalid login.", HTTP_400_BAD_REQUEST)
 
@@ -159,7 +159,8 @@ class UserRegisterAPIView(APIView):
             return Response("Duplicate username!", HTTP_400_BAD_REQUEST)
         password = data.get('password')
         email = data.get('email')
-        user = User.objects.create_user(username=username,password=password, email=email)
+        user = User.objects.create_user(
+            username=username, password=password, email=email)
         if user:
             serializer = UserBasicSerializer(user)
             return Response(serializer.data, status=HTTP_200_OK)
