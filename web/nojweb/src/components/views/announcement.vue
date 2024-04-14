@@ -1,5 +1,5 @@
 <template>
-  <el-row style="height: 33vh; overflow: hidden; margin: auto; max-width: 1500px;">
+  <el-row style="margin: auto; max-width: 1500px;">
     <el-col :xs="24" :sm="24" :md="16">
       <el-card class="box-card" shadow="hover">
         <template #header>
@@ -60,13 +60,18 @@ export default {
 
 <style>
 .card-header {
-  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+  font-weight: bolder;
+  /* font-size: 18px;
   font-weight: bold;
-  padding: 20px;
+  padding: 20px; */
 }
 
 .announcement-scroll {
-  height: calc(100% - 40px); /* 公告栏占据屏幕的垂直三分之一减去标题栏的高度 */
+  /* height: calc(100% - 40px); 公告栏占据屏幕的垂直三分之一减去标题栏的高度 */
   overflow: auto;
 }
 
