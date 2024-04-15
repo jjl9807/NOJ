@@ -68,7 +68,7 @@ import axios from 'axios';
         all() {
           this.problemList = [];
       // 请求数据
-      axios.get('http://127.0.0.1:8000/problem/', {
+      axios.get('/api/problem/', {
         params: {
           limit: this.page_size,
           offset: (this.currentPage - 1) * this.page_size,

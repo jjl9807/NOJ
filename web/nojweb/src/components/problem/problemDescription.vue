@@ -48,14 +48,12 @@ export default {
     };
   },
   mounted() {
-    // Simulated API call to fetch problem data
     this.pid = this.$route.params.pid;
     this.fetchProblemData();
   },
   methods: {
     fetchProblemData() {
-      // Simulated problem data
-      axios.get('http://127.0.0.1:8000/problem/' + this.pid).then(res => {
+      axios.get('/api/problem/' + this.pid + '/').then(res => {
         this.problem = {
           title: res.data.title,
           content: res.data.desc,
