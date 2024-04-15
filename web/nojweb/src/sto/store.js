@@ -21,7 +21,7 @@ const initialState = {
   code: localStorage.getItem('code') || '',
   uid: localStorage.getItem('uid') || 0,
   name: localStorage.getItem('name') || '/',
-  gid: localStorage.getItem('gid') || 0,
+  pid: localStorage.getItem('pid') || 0,
   ip: localStorage.getItem('ip') || '',
   path: localStorage.getItem('path') || '',
 };
@@ -39,9 +39,9 @@ export default createStore({
       state.name = name;
       localStorage.setItem('name', name);
     },
-    setGid(state, gid) {
-      state.gid = gid;
-      localStorage.setItem('gid', gid);
+    setPid(state, pid) {
+      state.gid = pid;
+      localStorage.setItem('pid', pid);
     },
     setIp(state, ip) {
       state.ip = ip;

@@ -1,12 +1,12 @@
 <template>
     <el-menu mode="horizontal" :default-active="this.$store.state.activeTitle" :router="true">
-      <el-menu-item index="/problem/1">
+      <el-menu-item index="/problem/ + this.$route.params.pid" >
         <el-icon>
           <Lollipop />
         </el-icon>
         描述
       </el-menu-item>
-      <el-menu-item  index="/problem/1/submission">
+      <el-menu-item  index="/problem/+this.$route.params.pid+ /submission">
         <el-icon>
           <Files />
         </el-icon>
@@ -20,7 +20,9 @@
   export default {
     name: "problemMenu",
     data() {
-
+      return {
+        pid:this.$route.params.pid,
+      }
     },
     methods: {
       logout() {

@@ -44,9 +44,9 @@ export default {
       // 模拟异步加载数据，此处应替换为实际的数据获取方式
       await new Promise(resolve => setTimeout(resolve, 100)); // 模拟异步加载延迟
       this.announcements = [
-        { aid: 1, title: "公告标题1", time: "2024-03-16" },
-        { aid: 2, title: "公告标题2", time: "2024-03-15" },
-        { aid: 3, title: "公告标题3", time: "2024-03-14" }
+        { aid: 1, title: "NOJ征题公告", time: "2024-03-16" },
+        { aid: 2, title: "竞赛公告", time: "2024-03-15" },
+        { aid: 3, title: "系统维护通知", time: "2024-03-14" }
         // 添加更多公告数据
       ];
       this.loading = false; // 加载完成
