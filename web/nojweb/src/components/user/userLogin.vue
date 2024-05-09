@@ -23,6 +23,8 @@
 </template>
   
   <script>
+import axios from 'axios';
+
   export default {
     name: "userLogin",
     data() {
@@ -34,16 +36,23 @@
     }
   },
     methods: {
-      login() {
-        // 在这里可以编写登录逻辑，例如发送登录请求到后端接口
-        // 然后根据后端返回的结果进行相应的处理
-        console.log('Username:', this.userInfo.name);
-        console.log('Password:', this.userInfo.pwd);
-        // 这里只是简单地输出用户名和密码到控制台
+      submit() {
+        axios.post('/api/login', {
+          username: this.userInfo.name,
+          password: this.userInfo.pwd
+        }).then(res => {
+          console.log(res.data)
+          const userID = res.data.id;
+          const username = res.data.username;
+          // 更新 Vuex store
+          this.$store.commit('setUid', userID);
+          this.$store.commit('setName', username);
+          this.$router.push('/')
+        }).catch(err => {
+          this.$message.error('登录失败，请检查用户名和密码是否正确');
+          console.log(err)
+        })
       },
-      submit(){
-
-      }
     }
   };
   </script>

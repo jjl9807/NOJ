@@ -1,5 +1,5 @@
 <template>
-  <el-row style="height: 33vh; overflow: hidden; margin: auto; max-width: 1500px;">
+  <el-row style="margin: auto; max-width: 1500px;">
     <el-col :xs="24" :sm="24" :md="16">
       <el-card class="box-card" shadow="hover">
         <template #header>
@@ -23,7 +23,7 @@
     </el-col>
     <el-col :xs="24" :sm="24" :md="8">
       <div class="image-container">
-        <img src="your_image_url_here" alt="Image" />
+        <img src="@/assets/logo.png" alt="Image" />
       </div>
     </el-col>
   </el-row>
@@ -42,11 +42,11 @@ export default {
     // 模拟加载公告数据
     async fetchAnnouncements() {
       // 模拟异步加载数据，此处应替换为实际的数据获取方式
-      await new Promise(resolve => setTimeout(resolve, 1000)); // 模拟异步加载延迟
+      await new Promise(resolve => setTimeout(resolve, 100)); // 模拟异步加载延迟
       this.announcements = [
-        { aid: 1, title: "公告标题1", time: "2024-03-16" },
-        { aid: 2, title: "公告标题2", time: "2024-03-15" },
-        { aid: 3, title: "公告标题3", time: "2024-03-14" }
+        { aid: 1, title: "NOJ征题公告", time: "2024-03-16" },
+        { aid: 2, title: "竞赛公告", time: "2024-03-15" },
+        { aid: 3, title: "系统维护通知", time: "2024-03-14" }
         // 添加更多公告数据
       ];
       this.loading = false; // 加载完成
@@ -60,13 +60,18 @@ export default {
 
 <style>
 .card-header {
-  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+  font-weight: bolder;
+  /* font-size: 18px;
   font-weight: bold;
-  padding: 20px;
+  padding: 20px; */
 }
 
 .announcement-scroll {
-  height: calc(100% - 40px); /* 公告栏占据屏幕的垂直三分之一减去标题栏的高度 */
+  /* height: calc(100% - 40px); 公告栏占据屏幕的垂直三分之一减去标题栏的高度 */
   overflow: auto;
 }
 

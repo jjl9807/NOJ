@@ -51,8 +51,8 @@
         // 模拟数据
         const submissions = [
           // 示例提交记录数据
-          { id: 1, problem: '问题1', username: '用户A', result: '通过', time: '1s', memory: '100KB', language: 'C++', fileSize: '10KB', submitTime: '2024-03-17 10:00:00' },
-          { id: 2, problem: '问题2', username: '用户B', result: '未通过', time: '-', memory: '-', language: 'Java', fileSize: '20KB', submitTime: '2024-03-17 10:05:00' },
+          { id: 1, problem: '两数之和', username: 'test1', result: 'Accepted', time: '1s', memory: '100KB', language: 'C++', fileSize: '10KB', submitTime: '2024-03-17 10:00:00' },
+          { id: 2, problem: '两数之差', username: 'test1', result: 'Wrong Answer', time: '-', memory: '-', language: 'Java', fileSize: '20KB', submitTime: '2024-03-17 10:05:00' },
           // 更多提交记录数据...
         ];
         this.submissions = submissions;

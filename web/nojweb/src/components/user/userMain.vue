@@ -3,7 +3,7 @@
       <el-row>
         <el-col :span="7">
           <div style="margin: 0 20px;">
-            <el-avatar shape="square" :size="250" :src="avatarAddress" />
+            <el-avatar shape="square" :size="250" :src="require('@/assets/R-C.png')" />
           </div>
           <div id="name">
             {{ info.name }}
@@ -45,7 +45,7 @@
         uid: 0,
         info: {},
         newMotto: '/',
-        avatarAddress: '',
+        avatarAddress: '@/assets/R-C.png',
         group: ['', '普通用户', '管理员', '超级管理员'],
       }
     },

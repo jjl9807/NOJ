@@ -8,7 +8,7 @@ import router from "./router/router"
 
 import store from './sto/store'
 
-// import axios from 'axios'
+//import axios, { Axios } from 'axios'
 // import VueAxios from 'vue-axios'
 
 //import store from './sto/store'
@@ -17,5 +17,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 app.use(ElementPlus).use(router).use(store).mount('#app');
+
 
 
