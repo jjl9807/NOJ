@@ -37,7 +37,7 @@ import axios from 'axios';
   },
     methods: {
       submit() {
-        axios.post('/api/login', {
+        axios.post('http://127.0.0.1:8000/login', {
           username: this.userInfo.name,
           password: this.userInfo.pwd
         }).then(res => {

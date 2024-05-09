@@ -53,7 +53,7 @@ export default {
         if (valid) {
           if (this.registerForm.password === this.registerForm.confirmPassword) {
             // 进行注册逻辑，例如发送注册请求到后端接口
-        axios.post('/api/register', {
+        axios.post('http://127.0.0.1:8000/register', {
         username: this.registerForm.username,
         email: this.registerForm.email,
         password:this.registerForm.password
